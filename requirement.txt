@@ -1,0 +1,11 @@
+decorator==4.0.9
+dict==0.0.5
+future==0.15.2
+get==0.0.7
+post==0.0.5
+public==0.0.0
+python-telegram-bot==4.2.0
+query-string==0.0.5
+request==0.0.5
+requests==2.10.0
+self==0.0.5
