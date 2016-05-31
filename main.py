@@ -1,6 +1,7 @@
 from modules import *
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-import  logging
+import logging
+import json
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -20,9 +21,11 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    result = str(bing_search(update.message.text))
-    response = print(result)
-    bot.sendMessage(update.message.chat_id, text = response)
+    results = bing_search(update.message.text)
+    response = 'Hasil pencarian :\n'
+    for item in results['d']['results']:
+        response += '[' + str(item['Title'].encode('ascii', 'ignore'))[2:-1] + '](' + str(item['Url'].encode('ascii', 'ignore'))[2:-1] + ')\n'
+    bot.sendMessage(update.message.chat_id, text = response, parse_mode = "Markdown")
     
 
 def error(bot, update, error):
@@ -31,7 +34,7 @@ def error(bot, update, error):
 
 def main():
     # Create the EventHandler and pass it your bot's token.
-    updater = Updater("213410107:AAEQe7nYLk0pib19v8olvj4i58Q0DdZNi5M")
+    updater = Updater("BOT_TOKEN")
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
